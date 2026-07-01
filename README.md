@@ -4,7 +4,7 @@ KeeAI adalah asisten chatbot WhatsApp pribadi yang cerdas dan responsif, dibangu
 
 ## Fitur Utama
 
-- **Integrasi Gemini AI**: Mampu menjawab berbagai pertanyaan umum secara cerdas menggunakan model `gemini-3.5-flash`.
+- **Integrasi Gemini AI**: Mampu menjawab berbagai pertanyaan umum secara cerdas menggunakan model `gemini-2.5-flash`.
 - **Auto-Reply Perintah**: Menjawab perintah berbasis teks.
 - **Bebas Spam**: Hanya membalas pesan yang diawali dengan awalan perintah `!`.
 - **Session Auth Terintegrasi**: Menyimpan sesi WhatsApp secara lokal agar tidak perlu berulang kali melakukan scan QR code.
