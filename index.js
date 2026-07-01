@@ -9,7 +9,13 @@ let model = null;
 
 if (apiKey && apiKey !== 'YOUR_GEMINI_API_KEY_HERE') {
     const genAI = new GoogleGenerativeAI(apiKey);
-    model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+    model = genAI.getGenerativeModel({ 
+        model: 'gemini-3.5-flash',
+        generationConfig: {
+            maxOutputTokens: 150
+        },
+        systemInstruction: 'Kamu adalah bot WhatsApp yang ramah, santai, dan TO THE POINT. Jawab pertanyaan user maksimal dalam 2-3 kalimat saja. Jangan bertele-tele.'
+    });
 } else {
     console.warn('⚠️ Peringatan: GEMINI_API_KEY belum dikonfigurasi di file .env. Fitur AI tidak akan berfungsi.');
 }
@@ -79,7 +85,7 @@ client.on('message', async (msg) => {
             }
 
             try {
-                // Generate respon menggunakan model Gemini 2.5 Flash
+                // Generate respon menggunakan model Gemini 3.5 Flash
                 const response = await model.generateContent(pertanyaan);
                 const replyText = response.response.text();
                 await msg.reply(replyText);
