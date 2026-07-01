@@ -25,7 +25,7 @@ client.on('qr', (qr) => {
 
 // 3. Notifikasi Sukses
 client.on('ready', () => {
-    console.log('Wazapbro Lokal Berhasil Konek! Bot siap menerima perintah.');
+    console.log('KeeAI Berhasil Konek! Bot siap menerima perintah.');
 });
 
 // 4. Logika Auto-Reply yang Lebih Aman (Menggunakan Async/Await)
@@ -33,21 +33,24 @@ client.on('message', async (msg) => {
     try {
         const pesan = msg.body.toLowerCase();
 
+        // Hanya tanggapi pesan yang dimulai dengan awalan perintah (!)
+        if (!pesan.startsWith('!')) return;
+
         if (pesan === '!ping') {
-            await msg.reply('Pong! Bot Desnet lokal aktif, bro. 😎');
+            await msg.reply('Pong! KeeAI aktif, bro. 😎');
         } 
         else if (pesan === '!menu') {
             await msg.reply(
-                `=== LAYANAN WAZAPBRO LOKAL ===\n\n` +
+                `=== MENU KEEAI ===\n\n` +
                 `Silahkan pilih perintah berikut:\n` +
                 `1. *!ping* -> Cek status bot\n` +
-                `2. *!info* -> Tentang PT Desnet`
+                `2. *!info* -> Tentang KeeAI`
             );
         } 
         else if (pesan === '!info') {
-            await msg.reply('PT Desnet adalah perusahaan ISP dan IT Solution yang keren tempat gw lagi PKL sekarang!');
+            await msg.reply('KeeAI adalah asisten chatbot WhatsApp pribadi yang cerdas dan siap membantumu kapan saja!');
         } 
-        // SOLUSI BUG 1: Respon jika perintah tidak dikenali
+        // Respon jika perintah yang diawali '!' tidak dikenali
         else {
             await msg.reply('Maaf bro, perintah tidak dikenali. Ketik *!menu* untuk melihat daftar perintah.');
         }
