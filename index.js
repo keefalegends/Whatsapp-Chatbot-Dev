@@ -108,19 +108,28 @@ client.on('message', async (msg) => {
                 const chat = await msg.getChat();
                 await chat.sendStateTyping();
 
-                // Inisialisasi model secara dinamis dengan sifat saat ini
-                const model = genAI.getGenerativeModel({ 
-                    model: 'gemini-3.5-flash',
+                const modelName = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+
+                // Tentukan konfigurasi secara dinamis
+                const modelConfig = { 
+                    model: modelName,
                     generationConfig: {
-                        maxOutputTokens: 150,
-                        thinkingConfig: {
-                            thinkingLevel: 'MINIMAL'
-                        }
+                        maxOutputTokens: 150
                     },
                     systemInstruction: personalities[currentPersonality]
-                });
+                };
 
-                // Generate respon menggunakan model Gemini 3.5 Flash
+                // Hanya aktifkan thinkingConfig untuk model Gemini 3.5+ yang mendukung reasoning
+                if (modelName.includes('3.5') || modelName.includes('3.0')) {
+                    modelConfig.generationConfig.thinkingConfig = {
+                        thinkingLevel: 'MINIMAL'
+                    };
+                }
+
+                // Inisialisasi model secara dinamis
+                const model = genAI.getGenerativeModel(modelConfig);
+
+                // Generate respon menggunakan model Gemini
                 const response = await model.generateContent(pertanyaan);
                 const replyText = response.response.text();
                 await msg.reply(replyText);
