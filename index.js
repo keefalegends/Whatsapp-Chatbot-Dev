@@ -124,6 +124,11 @@ client.on('message', async (msg) => {
                     modelConfig.generationConfig.thinkingConfig = {
                         thinkingLevel: 'MINIMAL'
                     };
+                } else {
+                    // Gemini 2.5 menggunakan thinkingBudget untuk menonaktifkan proses berpikir
+                    modelConfig.generationConfig.thinkingConfig = {
+                        thinkingBudget: 0
+                    };
                 }
 
                 // Inisialisasi model secara dinamis
